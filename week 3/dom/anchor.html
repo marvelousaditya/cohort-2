@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>finding html elements using document.anchor</h2>
+
+    <a name="html">html tut</a> <br />
+    <a href="css">css tut</a><br />
+    <a href="js">js tut</a><br />
+
+    <p id="demo"></p>
+    <script>
+      document.getElementById("demo").innerHTML =
+        "number of anchors are: " + document.anchors.length;
+    </script>
+  </body>
+</html>

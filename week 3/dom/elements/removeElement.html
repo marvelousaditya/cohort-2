@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>the element object</h1>
+    <h2>the remove() method</h2>
+
+    <p id="demo">Click "Remove", this para will be removed from DOM</p>
+
+    <button onclick="myFunction()">Remove</button>
+
+    <script>
+      function myFunction() {
+        const element = document.getElementById("demo");
+        element.remove();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>div 1</div>
+    <p class="intro">para 1</p>
+    <div>div 2</div>
+    <p class="subheading">para 2</p>
+    <div>div 3</div>
+    <p class="intro">para 3</p>
+    <div id="myDiv" style="border: 1px solid black; padding: 8px">
+      <h2 class="example">A Heading</h2>
+      <p class="example">A paragraph</p>
+      <p class="example">A paragraph</p>
+    </div>
+
+    <p id="demo"></p>
+    <script>
+      var para = document.querySelectorAll("p.intro");
+      para.forEach((para) => (para.style.backgroundColor = "red"));
+
+      // can pass multiple selectors as well , const matches = myBox.querySelectorAll("p.intro,p.subheading");
+
+      const element = document.getElementById("myDiv");
+      const list = element.querySelectorAll(".example");
+      console.log(list.length);
+      document.getElementById("demo").innerHTML =
+        "the number of elements with class example in myDiv are : " +
+        list.length;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p id="p1">Hello World</p>
+    <button onclick="change()">click to change</button>
+    <script>
+      function change() {
+        document.getElementById("p1").innerHTML = "New Paragraph Text";
+      }
+    </script>
+
+    <p>the para above was changed by a script using dom</p>
+  </body>
+</html>

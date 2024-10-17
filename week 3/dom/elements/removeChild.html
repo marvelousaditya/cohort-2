@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>js html dom</h2>
+    <p>remove child element</p>
+
+    <div id="div1">
+      <p id="p1">this is para 1</p>
+      <p id="p2">this is para 2</p>
+    </div>
+
+    <button onclick="myFunction()">Click to remove para 1</button>
+    <script>
+      function myFunction() {
+        const parent = document.getElementById("div1");
+        const child = document.getElementById("p1");
+
+        parent.removeChild(child);
+      }
+    </script>
+  </body>
+</html>

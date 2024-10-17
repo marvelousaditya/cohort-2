@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>the element object</h1>
+    <h2>The setAttribute() method</h2>
+
+    <input id="myInput" value="ok" />
+    <p>Click "Change" to add a input field to input button</p>
+
+    <button onclick="myFunction()">Change</button>
+
+    <script>
+      function myFunction() {
+        document.getElementById("myInput").setAttribute("type", "button");
+      }
+    </script>
+  </body>
+</html>

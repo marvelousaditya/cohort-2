@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #myDiv1,
+      #myDiv2 {
+        background-color: coral;
+        padding: 50px;
+      }
+
+      #myP1,
+      #myP2 {
+        background-color: white;
+        font-size: 20px;
+        border: 1px solid;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>js addEventListener()</h2>
+
+    <div id="myDiv1">
+      <h2>Bubbling:</h2>
+      <p id="myP1">Click me!</p>
+    </div>
+    <br />
+
+    <div id="myDiv2">
+      <h2>Capturing:</h2>
+      <p id="myP2">Click me!</p>
+    </div>
+
+    <script>
+      //bubbling
+      document.getElementById("myP1").addEventListener(
+        "click",
+        function () {
+          alert("you clicked the white element");
+        },
+        false
+      );
+
+      document.getElementById("myDiv1").addEventListener(
+        "click",
+        () => {
+          alert("you clicked the orange element!");
+        },
+        false
+      );
+
+      // capturing
+      document
+        .getElementById("myP2")
+        .addEventListener(
+          "click",
+          () => alert("you clicked the white element.."),
+          true
+        );
+
+      document
+        .getElementById("myDiv2")
+        .addEventListener(
+          "click",
+          () => alert("you clicked the orange element"),
+          true
+        );
+    </script>
+  </body>
+</html>

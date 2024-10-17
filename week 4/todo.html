@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="title" placeholder="title" />
+    <br /><br />
+    <input type="text" id="description" placeholder="description" />
+    <br /><br />
+    <button onclick="addTodo()">Add Todo</button><br /><br />
+    <div id="todo"></div>
+
+    <script>
+      let i = 1;
+
+      function addTodo() {
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+
+        //add todo
+        // const para = document.createElement("p");
+        // para.innerHTML = title + "<br>" + description;
+        // document.getElementById("todo").appendChild(para);
+
+        const outerDiv = document.createElement("div");
+        outerDiv.setAttribute("id", i);
+        const titleDiv = document.createElement("div");
+        const desDiv = document.createElement("div");
+        titleDiv.innerHTML = `<b>title</b> : ${title} `;
+        desDiv.innerHTML = `<b>description</b> : ${description}`;
+
+        // add button
+        const btn = document.createElement("button");
+        btn.innerHTML = "Mark as Done";
+        //btn.id = i++;
+        // btn.onclick = function () {
+        //   done(this);
+        // };
+        btn.setAttribute("onclick", `done(${i})`);
+        i++;
+        outerDiv.appendChild(titleDiv);
+        outerDiv.appendChild(desDiv);
+        outerDiv.appendChild(btn);
+
+        document.getElementById("todo").appendChild(outerDiv);
+      }
+
+      //update button
+      function done(id) {
+        const parent = document.getElementById(id);
+        parent.children[2].innerHTML = "Done";
+        // id.textContent = "Done";
+        // id.disabled = true;
+      }
+    </script>
+  </body>
+</html>

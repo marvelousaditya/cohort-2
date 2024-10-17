@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="title" placeholder="title" />
+    <br /><br />
+    <input type="text" id="description" placeholder="description" />
+    <br /><br />
+
+    <div id="todo"></div>
+    <script>
+      let globalId = 1;
+
+      function createChild(title, description, id) {
+        const outerDiv = document.createElement("div");
+        outerDiv.setAttribute("id", id);
+        const titleDiv = document.createElement("div");
+        const desDiv = document.createElement("div");
+        titleDiv.innerHTML = `<b>title</b> : ${title} `;
+        desDiv.innerHTML = `<b>description</b> : ${description}`;
+
+        const btn = document.createElement("button");
+        btn.innerHTML = "Mark as Done";
+        btn.setAttribute("onclick", `done(${id})`);
+        outerDiv.appendChild(titleDiv);
+        outerDiv.appendChild(desDiv);
+        outerDiv.appendChild(btn);
+
+        return outerDiv;
+      }
+
+      function done(id) {
+        const parent = document.getElementById(id);
+        parent.children[2].innerHTML = "Done";
+      }
+
+      /*   we get a list of todos from backend and it should be updated and shown on the screen
+      State will always be array of object
+      every element will have id , description, title */
+
+      function updateDomAccToState(state) {
+        const parent = document.getElementById("todo");
+        parent.innerHTML = "";
+        for (let i = 0; i < state.length; i++) {
+          const child = createChild(
+            state[i].title,
+            state[i].description,
+            state[i].id
+          );
+
+          parent.appendChild(child);
+        }
+      }
+
+      window.setInterval(async function () {
+        const response = await fetch("https://sum-server.100xdevs.com/todo");
+        const json = await response.json();
+        updateDomAccToState(json.todos);
+      }, 5000);
+
+      // updateDomAccToState([
+      //   {
+      //     id: 1,
+      //     title: "go to gym",
+      //     description: "at 9 am",
+      //   },
+      // ]);
+    </script>
+  </body>
+</html>

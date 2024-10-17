@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        border: 1px solid black;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>change the bg colour of every p element whose parent is div element</p>
+
+    <div>
+      <h3>h3 heading</h3>
+      <p>this should be coloured</p>
+    </div>
+
+    <div>
+      <h2>h2 heading</h2>
+      <p>this tooo</p>
+    </div>
+
+    <p>this shall not</p>
+    <script>
+      const nodeList = document.querySelectorAll("div > p");
+      nodeList.forEach((ele) => (ele.style.backgroundColor = "green"));
+    </script>
+  </body>
+</html>

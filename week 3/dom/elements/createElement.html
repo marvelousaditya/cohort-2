@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>the dom object</h1>
+    <h2>the createElement() method</h2>
+
+    <p>Create a p element and append it to "myDiv":</p>
+
+    <div id="myDiv" style="padding: 16px; background-color: lightgray">
+      <h3>A div element</h3>
+    </div>
+
+    <button onclick="addText()">Click to Add para to div</button>
+    <script>
+      function addText() {
+        // create element
+        const para = document.createElement("p");
+        para.innerHTML = "this is added text";
+        // append to another element
+        document.getElementById("myDiv").appendChild(para);
+      }
+    </script>
+  </body>
+</html>

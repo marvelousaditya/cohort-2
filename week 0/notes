@@ -1,0 +1,10 @@
+span -> when we want to style something but appear in the same line , it takes as much space it needs
+
+div -> take one line 
+
+box-shadow: (left or right) (top or bottom) (fade) colour
+
+
+when we use flex alll the children appear in the same line 
+
+padding : top right bottom left

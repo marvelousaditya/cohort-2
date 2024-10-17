@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- for any non-empty HTML document , documentElement will always be an <html> element , for any non-empty XML document, documentElement will always be whatever element is the root element of the document -->
+    <h2>js html dom</h2>
+    <p>displaying document.documentElement</p>
+
+    <p id="demo"></p>
+    <script>
+      document.getElementById("demo").innerHTML =
+        document.documentElement.innerHTML;
+    </script>
+  </body>
+</html>
