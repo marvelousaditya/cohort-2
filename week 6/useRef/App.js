@@ -4,11 +4,11 @@ import ReactDOM from "react-dom/client";
 function App() {
   const divRef = useRef();
 
-  useEffect(() => {
+  useEffect(() =>  {
     setTimeout(() => {
       divRef.current.innerHTML = "10";
     }, 5000);
-  }, []);
+  }, []); 
 
   const incomeTax = 20000;
 
