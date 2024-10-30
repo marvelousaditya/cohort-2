@@ -1,11 +1,9 @@
-import { useRecoilValue, RecoilRoot } from "recoil";
+import { useRecoilValue, RecoilRoot, useRecoilState } from "recoil";
 import {
-  networkAtom,
   notificationAtom,
-  messageAtom,
-  jobsAtom,
-  countSelector,
+  totalNotificationSelector,
 } from "./store/atom/atoms";
+import { useEffect, useState } from "react";
 
 function App() {
   return (
@@ -18,21 +16,24 @@ function App() {
 }
 
 function MainApp() {
-  const network = useRecoilValue(networkAtom);
-  const job = useRecoilValue(jobsAtom);
-  const notifications = useRecoilValue(notificationAtom);
-  const message = useRecoilValue(messageAtom);
-  const totalCount = useRecoilValue(countSelector);
+  // const [network, setNetwork] = useState({});
+  const [network, setNetwork] = useRecoilState(notificationAtom);
+  const totalNotification = useRecoilValue(totalNotificationSelector);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/notifications").then(async (res) => {
+  //     const json = await res.json();
+  //     setNetwork(json);
+  //   });
+  // }, []);
   return (
     <div>
-      <button>Home</button>
+      <button>notification {network.notifications}</button>
+      <button>network {network.network}</button>
+      <button>jobs {network.jobs}</button>
+      <button>message {network.messaging}</button>
 
-      <button>Network({network >= 100 ? "99+" : network})</button>
-      <button>Jobs({job})</button>
-      <button>Messaging({message})</button>
-      <button>Notifications({notifications})</button>
-
-      <button>Me({totalCount})</button>
+      <button>Me {totalNotification}</button>
     </div>
   );
 }
