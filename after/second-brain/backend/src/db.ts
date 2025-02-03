@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { Schema, Types, model } from "mongoose";
-
-const DB_URL = "mongodb://localhost:27017";
+import { DB_URL } from "./config";
 
 mongoose
   .connect(DB_URL)
@@ -27,9 +26,10 @@ const UserSchema = new Schema<UserType>({
 });
 
 enum TypeEnum {
-  twitter = "twitter",
-  reddit = "reddit",
-  medium = "medium",
+  image = "image",
+  video = "video",
+  article = "article",
+  audio = "audio",
 }
 
 type ContentType = {
@@ -63,10 +63,12 @@ type LinkType = {
 
 const LinkSchema = new Schema<LinkType>({
   hash: { type: String, required: true, unique: true },
-  userId: { type: Schema.ObjectId, ref: "User", required: true },
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-const User = model<UserType>("User", UserSchema);
-const Content = model<ContentType>("Content", ContentSchema);
-const Tags = model<TagType>("Tags", TagSchema);
-const Link = model<LinkType>("Link", LinkSchema);
+export const User = model<UserType>("User", UserSchema);
+export const Content = model<ContentType>("Content", ContentSchema);
+export const Tags = model<TagType>("Tags", TagSchema);
+export const Link = model<LinkType>("Link", LinkSchema);
+
+// module.exports = TagSchema,
