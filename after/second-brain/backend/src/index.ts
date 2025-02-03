@@ -1,8 +1,9 @@
 import express from "express";
+import crypto from "crypto";
 import cors from "cors";
 import jwt from "jsonwebtoken";
 import { user } from "./types";
-import { User, Content } from "./db";
+import { User, Content, Link } from "./db";
 import { userMiddleware } from "./middleware";
 import { JWT_Pass, ResponseEnum } from "./config";
 const app = express();
@@ -89,7 +90,7 @@ app.get("/api/v1/content", userMiddleware, async (req, res) => {
       "userId",
       "username"
     );
-    if (userContent) {
+    if (userContent.length > 0) {
       res
         .status(ResponseEnum.Ok)
         .json({ content: userContent, msg: "content retrieved successfully" });
@@ -114,7 +115,7 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
       contentId,
       userId,
     });
-    if (deletedContent) {
+    if (deletedContent.deletedCount > 0) {
       res.status(ResponseEnum.Ok).json({ msg: "content deleted successfully" });
     } else {
       res
@@ -128,8 +129,38 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
   }
 });
 
-app.post("/api/v1/brain/share", (req, res) => {});
-app.get("/api/v1/brain/:shareLink", (req, res) => {});
+app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
+  const { share } = req.body;
+  if (share) {
+    try {
+      const randomUid = crypto.randomUUID();
+      const linkCreation = await Link.create({
+        hash: randomUid,
+        //@ts-ignore
+        userId: req.userId,
+      });
+      res.status(ResponseEnum.Created).json({ link: "link to content" });
+    } catch (err) {
+      res
+        .status(ResponseEnum.InternalError)
+        .json({ error: `some error occured ${err}` });
+    }
+  }
+});
+app.get("/api/v1/brain/:shareLink", userMiddleware, async (req, res) => {
+  const { linkId } = req.query;
+  try {
+    //@ts-ignore
+    const contents = await Link.find({ hash: linkId, userId: req.userId });
+    if (contents.length > 0) {
+      res.status(ResponseEnum.Ok).json({ contents });
+    } else {
+      res.status(ResponseEnum.BadRequest).json({ msg: "some error occured" });
+    }
+  } catch (err) {
+    res.status(ResponseEnum.InternalError).json({ error: `error ${err}` });
+  }
+});
 
 app.listen(3000, () => {
   console.log("listening on port 3000");
