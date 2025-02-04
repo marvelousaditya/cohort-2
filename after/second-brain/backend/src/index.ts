@@ -20,6 +20,10 @@ app.post("/api/v1/signup", async (req, res) => {
     });
   }
   try {
+    const userExists = await User.findOne({ username });
+    if (userExists) {
+      return res.status(ResponseEnum.BadRequest).json({ msg: "User exists" });
+    }
     const createdUser = await User.create({
       username,
       password,
@@ -131,31 +135,60 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
 
 app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
   const { share } = req.body;
-  if (share) {
-    try {
+  try {
+    if (share) {
+      //@ts-ignore
+      const linkExists = await Link.findOne({ userId: req.userId });
+      if (linkExists) {
+        return res
+          .status(ResponseEnum.BadRequest)
+          .json({ msg: "link exists", hash: linkExists.hash });
+      }
       const randomUid = crypto.randomUUID();
       const linkCreation = await Link.create({
         hash: randomUid,
         //@ts-ignore
         userId: req.userId,
       });
-      res.status(ResponseEnum.Created).json({ link: "link to content" });
-    } catch (err) {
-      res
-        .status(ResponseEnum.InternalError)
-        .json({ error: `some error occured ${err}` });
+      res.status(ResponseEnum.Created).json({ hash: randomUid });
+    } else {
+      //@ts-ignore
+      const linkDelete = await Link.deleteOne({ userId: req.userId });
+      if (linkDelete.deletedCount > 0) {
+        res.status(ResponseEnum.Ok).json({ msg: "link disabled" });
+      } else {
+        res
+          .status(ResponseEnum.Unauthorized)
+          .json({ msg: "failed to disable link" });
+      }
     }
+  } catch (err) {
+    res
+      .status(ResponseEnum.InternalError)
+      .json({ error: `some error occured ${err}` });
   }
 });
-app.get("/api/v1/brain/:shareLink", userMiddleware, async (req, res) => {
-  const { linkId } = req.query;
+app.get("/api/v1/brain/:shareLink", async (req, res) => {
+  const hash = req.params.shareLink;
   try {
+    const link = await Link.findOne({ hash });
+    if (!link) {
+      return res
+        .status(ResponseEnum.BadRequest)
+        .json({ msg: "sorry incorrect input" });
+    }
     //@ts-ignore
-    const contents = await Link.find({ hash: linkId, userId: req.userId });
+    const userId = link.userId;
+    const contents = await Content.find({ userId }).populate(
+      "userId",
+      "username"
+    );
     if (contents.length > 0) {
       res.status(ResponseEnum.Ok).json({ contents });
     } else {
-      res.status(ResponseEnum.BadRequest).json({ msg: "some error occured" });
+      res
+        .status(ResponseEnum.InternalError)
+        .json({ msg: "some errored occured" });
     }
   } catch (err) {
     res.status(ResponseEnum.InternalError).json({ error: `error ${err}` });

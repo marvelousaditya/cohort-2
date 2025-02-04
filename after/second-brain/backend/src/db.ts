@@ -63,7 +63,12 @@ type LinkType = {
 
 const LinkSchema = new Schema<LinkType>({
   hash: { type: String, required: true, unique: true },
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+    unique: true,
+  },
 });
 
 export const User = model<UserType>("User", UserSchema);

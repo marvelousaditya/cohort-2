@@ -14,11 +14,11 @@ const variantStyles = new Map<Variant, string>();
 variantStyles.set("primary", "bg-purple-600 text-white");
 variantStyles.set("secondary", "bg-purple-400 text-purple-600");
 
-const defaultSyles = "rounded-md flex";
+const defaultSyles = "rounded-md ";
 const sizeStyles = {
-  sm: "py-1 px-2",
-  md: "py-2 px-4",
-  lg: "py-4 px-6",
+  sm: "py-1 px-2 text-sm rounded-sm",
+  md: "py-2 px-4 text-md rounded-md",
+  lg: "py-4 px-6 text-xl rounded-xl",
 };
 export const Button = (props: ButtonPorps) => {
   const { variant, size, onClick, text, startIcon, endIcon } = props;
@@ -30,8 +30,10 @@ export const Button = (props: ButtonPorps) => {
         sizeStyles[size]
       }`}
     >
-      {startIcon ? <div className="pr-2">{startIcon}</div> : null} {text}{" "}
-      {endIcon}
+      <div className="flex items-center">
+        {startIcon ? <div className="pr-2">{startIcon}</div> : null} {text}{" "}
+        {endIcon ? <div className="pl-2">{endIcon}</div> : null}
+      </div>
     </button>
   );
 };
