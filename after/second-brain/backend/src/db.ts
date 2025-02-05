@@ -18,7 +18,7 @@ const UserSchema = new Schema<UserType>({
   username: {
     type: String,
     required: true,
-    minlength: 8,
+    minlength: 6,
     maxlength: 15,
     unique: true,
   },
@@ -26,10 +26,8 @@ const UserSchema = new Schema<UserType>({
 });
 
 enum TypeEnum {
-  image = "image",
-  video = "video",
-  article = "article",
-  audio = "audio",
+  twitter = "twitter",
+  youtube = "youtube",
 }
 
 type ContentType = {

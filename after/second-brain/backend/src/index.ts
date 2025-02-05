@@ -8,7 +8,7 @@ import { userMiddleware } from "./middleware";
 import { JWT_Pass, ResponseEnum } from "./config";
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 //@ts-ignore
 app.post("/api/v1/signup", async (req, res) => {
   const { username, password } = req.body;
